@@ -19,6 +19,26 @@ function insertionSort(arr) {
   */
 
   // Your code here
+  let copy = arr.slice();  // just copy
+  let sorted = [];         // target
+
+  while (copy.length > 0) { // check all elements
+    console.log(sorted.join(','));
+
+    let el0 = copy.pop()    // extract 1 el from source
+    sorted.push(null)       // will use for shift right
+
+    let i = sorted.length - 2; //last ignoring null
+    let el = sorted[i];
+    while(el >= el0 && i >= 0) { // left/last checking in target      
+      sorted[i+1] = sorted[i]; // shift checked to right
+      i--;                      // next
+      el = sorted[i];           // left element       
+    }    
+    sorted[i+1] = el0; // correcting last i change after while 
+  }
+ //console.log(sorted);
+  return sorted;
 }
 
 // In-place Insertion Sort
@@ -41,6 +61,26 @@ function insertionSortInPlace(arr) {
   */
 
   // Your code here
+  let pointer = 0; // like a length of left part; == first unsorted  
+  while (pointer < arr.length) {//while the unsorted half is not empty
+  
+
+    let el0 = arr[pointer] // first from unsorted
+    let breakPoint = 0;
+    for (let i = pointer; i >= 0; i--) {// for each from divider
+      let left = arr[i-1];
+      if (left < el0) { // insertion point
+        breakPoint = i;        
+        break;
+      } else { // shift value to the right
+        arr[i] = left; // and continue
+      }
+    }
+    arr[breakPoint] = el0 // insering at brake point or 0 index;
+    console.log(arr.join(','));
+    pointer++
+  }
+  return arr;
 }
 
 module.exports = [insertionSort, insertionSortInPlace];
